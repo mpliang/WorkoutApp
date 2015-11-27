@@ -88,6 +88,10 @@
   }
   /* CONTENT */
   /* ================= */
+  body {
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #9E9E9E;
+  }
   .wrapper-body {
     padding: 1.5rem 3rem;
     min-height: 400px;
@@ -154,4 +158,3 @@
     align-items: center;
   }
 }
-
