@@ -14,7 +14,7 @@ var app = angular.module('fantasyFitness')
 
         FitlogService.getLogs().success(function(data) {
             console.log('FitlogService -- retrieved logs: ');
-            console.log(data);
+            console.log("thisdata", data);
             $scope.fitlogs = data;
             $scope.lastEntry = $scope.fitlogs[$scope.fitlogs.length - 1];
             console.log($scope.lastEntry);
@@ -26,6 +26,7 @@ var app = angular.module('fantasyFitness')
                 $('.row-activity').each(function() {
                     var value = $(this).attr('data-activityValue');
                     var activity = $(this).attr('data-activityId');
+                    console.log("activity", activity)
                     $scope.updateRow(value, activity);
                 });
             }
@@ -37,6 +38,7 @@ var app = angular.module('fantasyFitness')
             var totalPoints = 0;
             $('.input-number').each(function(index) {
                 var value = $(this).val();
+                console.log("value", value)
                 if (value === null || value === '') {
                     value = 0;
                 }
@@ -48,6 +50,7 @@ var app = angular.module('fantasyFitness')
                 totalPoints += (rowValue * Number(value));
                 recordedValues.push(entry);
             });
+            console.log(recordedValues)
             $scope.recordedValues = recordedValues;
             $scope.totalPoints = totalPoints;
         };
