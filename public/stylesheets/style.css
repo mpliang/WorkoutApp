@@ -94,6 +94,9 @@
   body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
+  body p {
+    font-size: 1.5em;
+  }
   .wrapper-body {
     padding: 1.5rem 3rem;
     min-height: 400px;
@@ -104,7 +107,7 @@
     background-color: rgb(238, 238, 238);
     border-radius: 10px;
     padding: 5px 15px 15px 15px;
-    font-size: 2em;
+    font-size: 14px;
     font-weight: 300;
   }
   .homeBox.top {
@@ -114,8 +117,9 @@
   .homeBox.bottom {
     margin-bottom: 100px;
   }
-  .homeBox b {
-    font-weight: 700;
+  p.divTitle {
+    font-size: 16px;
+    /*font-weight: 600;*/
   }
   /* LOG VIEW */
   /* ================= */
