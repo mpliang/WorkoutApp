@@ -101,6 +101,8 @@ router.post('/:username/fitlog', function(req, res, next) {
   User.findById(req.params.id, function(err, data){
     console.log(data);
   })
+
+  //TODO: create a new fitlog for each week?
   var fitlog = new Fitlog(req.body);
   fitlog.save(function(err,fitlog) {
     if(err){ return next(err); }

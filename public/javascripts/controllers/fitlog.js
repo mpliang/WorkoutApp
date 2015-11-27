@@ -52,7 +52,8 @@ var app = angular.module('fantasyFitness')
             console.log(recordedValues)
             $scope.recordedValues = recordedValues;
             $scope.totalPoints = totalPoints;
-            FitlogService.saveLog()
+            // console.log($scope.lastEntry);
+            // FitlogService.saveLog($scope.lastEntry);
         };
 
         $scope.submitLog = function() {
