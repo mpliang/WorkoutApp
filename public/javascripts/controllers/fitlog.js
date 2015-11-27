@@ -38,7 +38,6 @@ var app = angular.module('fantasyFitness')
             var totalPoints = 0;
             $('.input-number').each(function(index) {
                 var value = $(this).val();
-                console.log("value", value)
                 if (value === null || value === '') {
                     value = 0;
                 }
@@ -53,18 +52,22 @@ var app = angular.module('fantasyFitness')
             console.log(recordedValues)
             $scope.recordedValues = recordedValues;
             $scope.totalPoints = totalPoints;
+            FitlogService.saveLog()
         };
 
         $scope.submitLog = function() {
             $scope.saveLog();
+            console.log($scope.lastEntry);
             // If $scope.fitlogs has a 'WORKING' entry, update the working entry
-            if ($scope.lastEntry.status == 'WORKING') {
+            if ($scope.lastEntry && $scope.lastEntry.status == 'WORKING') {
                 var log = $scope.lastEntry;
                 //TODO: Update the working log (CURRENTLY BROKEN)
-                //log.log = $scope.recordedValues;
-                //log.totalPoints = $scope.totalPoints;
-                //FitlogService.saveLog(log);
+                console.log($scope.recordedValues);
+                // log.log = $scope.recordedValues;
+                log.totalPoints = $scope.totalPoints;
+                FitlogService.saveLog(log);
             } else {
+              console.log('else');
                 // Else if $scope.fitlogs has no 'WORKING' entries, create a new entry
                 var log = {
                     'status': 'WORKING',

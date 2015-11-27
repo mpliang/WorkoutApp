@@ -91,6 +91,12 @@
   }
   /* CONTENT */
   /* ================= */
+<<<<<<< Updated upstream
+=======
+  body {
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+>>>>>>> Stashed changes
   .wrapper-body {
     padding: 1.5rem 3rem;
     min-height: 400px;

@@ -64,7 +64,6 @@ router.get('/', function(req, res, next) {
 
 // GET all weekly worksheets for current user
 router.get('/:username/fitlog', function(req, res, next) {
-  console.log('test');
   console.log(req.params.username);
   Fitlog.find(function(err, logs) {
     if (err) {
@@ -76,8 +75,11 @@ router.get('/:username/fitlog', function(req, res, next) {
 
 // GET a weekly worksheet with id
 router.get('/:username/fitlog/:fitlog', function(req, res, next) {
-  User.findById()
-  res.json(fitlog);
+  User.findById(req.params.id, function(err, data){
+    console.log(data);
+    // res.status(err ? 400 : 200).send(err || data);
+  })
+  // res.json(fitlog);
 });
 
 // router.get('/:userId', function(req, res) {
@@ -96,6 +98,9 @@ router.get('/:username/fitlog/:fitlog', function(req, res, next) {
 
 // POST a worksheet to the db
 router.post('/:username/fitlog', function(req, res, next) {
+  User.findById(req.params.id, function(err, data){
+    console.log(data);
+  })
   var fitlog = new Fitlog(req.body);
   fitlog.save(function(err,fitlog) {
     if(err){ return next(err); }
@@ -106,6 +111,7 @@ router.post('/:username/fitlog', function(req, res, next) {
 // PUT updates in a worksheet with id
 router.put('/:username/fitlog/:fitlog', function(req, res, next) {
   req.fitlog.update(function(err, fitlog) {
+    console.log('lol does this work?');
     if (err) { return next(err); }
     res.json(fitlog);
   });
