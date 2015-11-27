@@ -115,6 +115,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 
 app.service('FitlogService', ['$http', 'auth', function($http, auth) {
 	this.createLog = function(fitlog) {
+		console.log(fitlog);
 		return $http.post('/'+auth.getUserId()+'/fitlog', fitlog);
 	};
 	this.getLogs = function() {
@@ -127,7 +128,8 @@ app.service('FitlogService', ['$http', 'auth', function($http, auth) {
 	};
 	this.saveLog = function(fitlog) {
 		console.log('log id: ' + fitlog._id);
-		return $http.put('/'+auth.getUserId()+'/fitlog/'+fitlog._id, fitlog).success(function() {
+		return $http.put('/'+auth.getUserId()+'/fitlog/'+fitlog._id, fitlog).success(function(data) {
+			console.log(data);
 			console.log('success!!');
 		}).error(function(err) {
 			console.log('error!\n'+err);
