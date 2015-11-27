@@ -6,9 +6,9 @@ var app = angular.module('fantasyFitness')
         $scope.isLoggedIn = auth.isLoggedIn;
 
         $scope.tabs = [
-            { title: 'Da Rules',   content: '/templates/rules.html'   },
+            { title: 'What & Why',   content: '/templates/rules.html'   },
             { title: 'Scoring', content: '/templates/scoring.html' },
-            { title: 'Bonuses', content: '/templates/bonuses.html' }
+            // { title: 'Bonuses', content: '/templates/bonuses.html' }
         ];
         //$scope.posts = posts.posts;
         //$scope.test = 'hello';
@@ -25,4 +25,3 @@ var app = angular.module('fantasyFitness')
         //    posts.upvote(post);
         //};
 }]);
-
