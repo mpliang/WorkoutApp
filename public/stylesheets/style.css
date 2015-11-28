@@ -115,7 +115,7 @@
     border-top-right-radius: 0;
   }
   .homeBox.bottom {
-    margin-bottom: 100px;
+    margin-bottom: 150px;
   }
   p.divTitle {
     font-size: 16px;
@@ -170,6 +170,29 @@
   /*.table-log .table tbody > tr > td:not(.label-activity) {*/
   /*width: 6%;*/
   /*}*/
+
+  /* MUSIC PLAYER */
+  /* ================= */
+  .musicBody {
+    position: fixed;
+    background-color: #262626;
+    width: 400px;
+    height: 100px;
+    border-radius: 10px;
+    bottom: 25px;
+    left: -300px;
+    z-index: 1;
+  }
+  #playButton {
+    width: 80px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  #playButton:hover {
+    cursor: pointer;
+  }
+
   /* FOOTER */
   /* ================= */
   .wrapper-footer {
@@ -181,4 +204,13 @@
     justify-content: center;
     align-items: center;
   }
+}
+/*Correct side scroll*/
+.row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.col-sm-12 {
+  padding-left: 0;
+  padding-right: 0;
 }
