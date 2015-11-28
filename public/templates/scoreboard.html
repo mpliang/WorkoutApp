@@ -7,24 +7,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-md-12 col-lg-12">
             <table class="table table-responsive">
                 <thead>
                     <th>Player</th>
-                    <th>Hourly Activities</th>
-                    <th>Individual Movements</th>
                     <th>Total Points</th>
                 </thead>
-                <tbody>
+                <tbody ng-repeat="datum in userData">
                     <tr>
-                        <td>The Six Million Dollar Man</td>
-                        <td>
-                            High Intensity (hrs): 28 <strong>(196,000)</strong>
-                        </td>
-                        <td>
-                            Push Ups: 15 <strong>(150)</strong>
-                        </td>
-                        <td>196,150</td>
+                        <td>{{datum.ownerName}}</td>
+                        <td>{{datum.totalPoints}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -117,23 +117,31 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 }]);
 
 app.service('FitlogService', ['$http', 'auth', function($http, auth) {
+    this.getUserLogs = function(){
+      return $http.get('/users');
+    }
 	this.createLog = function(fitlog) {
 		return $http.post('/'+auth.getUserId()+'/fitlog', fitlog);
 	};
-	this.getLogs = function() {
-		return $http.get('/'+auth.getUserId()+'/fitlog');
+	this.getLogs = function(id) {
+        var id = auth.currentUser()
+		return $http.get('/fitlog/currentUser/'+id).success(function(data){
+          console.log(data)
+        });
 	};
 	this.getLogById = function(logId) {
 		return $http.get('/'+auth.getUserId()+'/fitlog/'+logId).then(function(res) {
 			return res.data;
 		});
 	};
-	this.saveLog = function(fitlog, id) {
-      console.log(fitlog.slice(0,20))
+	this.saveLog = function(fitlog, id, points) {
+      console.log("poop", fitlog.slice(0,20))
       console.log(id)
+      console.log(points)
         var data = {
           ownerName: id,
-          fitlog: fitlog
+          fitlog: fitlog,
+          totalPoints: points
         }
 		return $http.post('/fitlog/update', data).success(function(data) {
 			console.log("update", data);

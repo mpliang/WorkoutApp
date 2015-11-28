@@ -2,10 +2,16 @@ var app = angular.module('fantasyFitness')
 .config(['$stateProvider', function($stateProvider) {
 
 }])
-.controller('ScoreCtrl', ['$scope', function($scope) {
+.controller('ScoreCtrl', ['$scope', 'FitlogService', function($scope, FitlogService) {
     $scope.dates = getWeek();
     $scope.dateRange = [$scope.dates[0],$scope.dates[6]];
-
+//    console.log(FitlogService.getUserLogs())
+    var get = function(){FitlogService.getUserLogs().success(function(data) {
+      console.log(data)
+      $scope.userData = data
+    })
+    }
+    get();
     function getWeek() {
         var today = new Date(),
             sun = today.getDate() - today.getDay(),

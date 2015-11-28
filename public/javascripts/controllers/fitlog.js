@@ -16,10 +16,12 @@ var app = angular.module('fantasyFitness')
             console.log('FitlogService -- retrieved logs: ');
             console.log("thisdata", data);
             $scope.fitlogs = data;
-            $scope.lastEntry = $scope.fitlogs[$scope.fitlogs.length - 1];
-            console.log($scope.lastEntry);
+          
+            $scope.lastEntry = $scope.fitlogs[0]
+            console.log("tos", $scope.lastEntry)
+//            console.log($scope.lastEntry);
             // Populate the inputs with data from the last log entry
-            if ($scope.lastEntry.status == 'WORKING') {
+            if ($scope.lastEntry) {
                 $('.input-number').each(function(index) {
                     $(this).val($scope.lastEntry.log[index].entryValue);
                 });
@@ -30,8 +32,7 @@ var app = angular.module('fantasyFitness')
                     $scope.updateRow(value, activity);
                 });
             }
-        }).error(function(err, req, res) {console.log('FitlogService -- error retrieving logs: ' + '\nerr: ' + err + '\nreq body: ' + req.body + '\nres: ' + res.json);});
-
+        })
         // Update scope variables with current values in fields
         $scope.saveLog = function() {
             var recordedValues = [];
@@ -62,12 +63,14 @@ var app = angular.module('fantasyFitness')
             // If $scope.fitlogs has a 'WORKING' entry, update the working entry
             if ($scope.lastEntry) {
                 var log = $scope.recordedValues;
+                console.log($scope.totalPoints)
                 //TODO: Update the working log (CURRENTLY BROKEN)
                 console.log("here", log);
                 var logID = localStorage.logID
+                console.log("tereste", logID)
                 // log.log = $scope.recordedValues;
                 log.totalPoints = $scope.totalPoints;
-                FitlogService.saveLog(log, logID)
+                FitlogService.saveLog(log, logID, $scope.totalPoints)
             } else {
               console.log('else');
                 // Else if $scope.fitlogs has no 'WORKING' entries, create a new entry
