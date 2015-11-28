@@ -1,4 +1,6 @@
 <div class="view-scoreboard" ng-controller="ScoreCtrl">
+  <script>mixpanel.track("Scoreboard Page Loaded")</script>
+
     <div class="row">
         <div class="col-sm-12 col-md-6">
             <h2>Scoreboard <br> <small>{{ dateRange[0] | date: 'mediumDate' }} - {{ dateRange[1] | date: 'mediumDate' }}</small></h2>

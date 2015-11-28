@@ -98,11 +98,14 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 		}
 	};
 	auth.register = function(user) {
+		mixpanel.track("New User Registered")
 	  return $http.post('/register', user).success(function(data){
 		  auth.saveToken(data.token);
 	  }).error(function(err, req, res, next) {alert('auth.register (ERROR BLOCK) -- error: ' + err);});
 	};
 	auth.logIn = function(user){
+		mixpanel.track("User logged in")
+
 	  return $http.post('/login', user).success(function(data){
 	    auth.saveToken(data.token);
 	  });
