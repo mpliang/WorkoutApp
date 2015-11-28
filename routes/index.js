@@ -63,13 +63,22 @@ router.get('/', function(req, res, next) {
 });
 
 // GET all weekly worksheets for current user
-router.get('/:username/fitlog', function(req, res, next) {
-  console.log(req.params.username);
-  Fitlog.find(function(err, logs) {
+router.get('/fitlog/currentUser/:id', function(req, res, next) {
+  console.log(req.params.id);
+  Fitlog.find({ownerName: req.params.id}, function(err, logs) {
     if (err) {
       return next(err);
     }
-    res.json(logs);
+//    console.log(logs.length)
+//    for (var i=0; i<logs.length; i++){
+//      if (logs[i].ownerName === req.params.id){
+        res.send(logs);
+//      }
+//    }
+//    if(logs.ownerName === req.params.id){
+//      res.json(logs);
+//    }
+    
   });
 });
 
@@ -89,12 +98,12 @@ router.get('/:username/fitlog/:fitlog', function(req, res, next) {
 //   });
 // });
 //
-// router.get('/users', function(req, res, next) {
-//   User.find({}, function(err, data){
-//     console.log(data);
-//     res.status(err ? 400 : 200).send(err || data);
-//   });
-// });
+ router.get('/users', function(req, res, next) {
+   Fitlog.find({}, function(err, data){
+     console.log(data);
+     res.status(err ? 400 : 200).send(err || data);
+   });
+ });
 
 // POST a worksheet to the db
 router.post('/:username/fitlog', function(req, res, next) {
@@ -124,7 +133,7 @@ router.post('/:username/fitlog', function(req, res, next) {
 //});
 router.post('/fitlog/update', function(req, res, next){
   Fitlog.update({_id:req.body.ownerName}, 
-     {log: req.body.fitlog}, function(err, response){
+     {log: req.body.fitlog, totalPoints: req.body.totalPoints}, function(err, response){
     if (err){
       return err
     }

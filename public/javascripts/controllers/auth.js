@@ -1,5 +1,5 @@
 var app = angular.module('fantasyFitness')
-    .controller('AuthCtrl', ['$scope', '$state', 'auth', function($scope, $state, auth){
+    .controller('AuthCtrl', ['$scope', '$state', 'auth', '$location', function($scope, $state, auth, $location){
         $scope.user = {};
 
         $scope.register = function(){
@@ -13,7 +13,8 @@ var app = angular.module('fantasyFitness')
             auth.logIn($scope.user).error(function(error){
                 $scope.error = error;
             }).then(function(){
-                $state.go('home');
+              $location.path('/home')
+              $scope.$digest()
             });
         };
 }]);
