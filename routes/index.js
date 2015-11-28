@@ -111,17 +111,48 @@ router.post('/:username/fitlog', function(req, res, next) {
 });
 
 // PUT updates in a worksheet with id
-router.put('/:username/fitlog/:fitlog', function(req, res, next) {
-  req.fitlog.update(function(err, fitlog) {
-    console.log('lol does this work?');
-    if (err) { return next(err); }
-    res.json(fitlog);
-  });
-  //req.fitlog.save(function(err,fitlog) {
-  //  if(err){ return next(err); }
-  //  res.json(fitlog);
-  //});
-});
+//router.put('/:username/fitlog/', function(req, res, next) {
+//  req.fitlog.update(function(err, fitlog) {
+//    console.log('lol does this work?');
+//    if (err) { return next(err); }
+//    res.json(fitlog);
+//  });
+//  req.fitlog.save(function(err,fitlog) {
+//    if(err){ return next(err); }
+//    res.json(fitlog);
+//  });
+//});
+router.post('/fitlog/update', function(req, res, next){
+  Fitlog.update({_id:req.body.ownerName}, 
+     {log: req.body.fitlog}, function(err, response){
+    if (err){
+      return err
+    }
+    return response;
+  })
+  
+//  var newData = req.body.fitlog
+//  var query = {_id: req.body.ownerName}
+//    Fitlog.findOneAndUpdate(query,
+//      { $set: {log: newData}}
+//    )
+//    fitlog.save(function(err){
+//      if(err){
+//        return next(err);
+//      }
+//       return res.json(fitlog)
+//    })
+   
+//  Fitlog.findByIdAndUpdate(req.params.username, {
+//    $set: {
+//      log: req.body
+//    }
+//  },
+//    function(err, fitlog){
+//    console.log("this", fitlog)
+//    return res.json(err == null ? fitlog : err);
+//  })
+})
 
 
 // POST to user registration
