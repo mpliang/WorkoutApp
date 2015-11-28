@@ -8,8 +8,9 @@
 		<title>GitFit</title>
 		<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 		<link href="/stylesheets/style.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	</head>
-	<body ng-app="fantasyFitness">
+	<body ng-app="fantasyFitness" ng-controller="NavCtrl" ng-keyup="keyControl()">
 		<div class="wrapper-header" ng-controller="NavCtrl">
 			<a class="title-header" href="#/home">GitFit</a>
 			<ul class="menu-actions">
@@ -29,131 +30,143 @@
 			</ul>
 
 			<!-- MUSIC PLAYER -->
-				<div class="musicBody" ng-mouseover="slideOut()">
-					<img id="playButton" ng-if="playStatus" ng-click="playPause()" src="images/playbutton.png" alt="Play Button">
-					<img id="playButton" ng-if="!playStatus" ng-click="playPause()" src="images/pausebutton.png" alt="Play Button">
-				</div>
+			<div class="musicBody">
+				<!-- <div class="slideTab">Music</div> -->
+				<img id="playButton" ng-if="playStatus" ng-click="playPause()" src="images/playbutton.png" alt="Play Button">
+				<img id="playButton" ng-if="!playStatus" ng-click="playPause()" src="images/pausebutton.png" alt="Pause Button">
+				<img id="backwardButton" ng-dblclick="fastForward()" ng-click="previousSong()" src="images/backwardbutton.png" alt="Backward Button">
+				<img id="stopButton" ng-click="stopSong()" src="images/stopbutton.png" alt="Stop Button">
+				<img id="forwardButton" ng-dblclick="rewind()" ng-click="nextSong()" src="images/forwardbutton.png" alt="Forward Button">
+			</div>
+			<script>
+			$('.musicBody').mouseenter(function() {
+				$('.musicBody').addClass('musicSlide')
+			})
+			$('.musicBody').mouseleave(function() {
+					$('.musicBody').removeClass('musicSlide')
+
+				})
+				</script>
+			</div>
+			<!-- <script>
+			var slide = false;
+		</script> -->
+
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<ui-view></ui-view>
+			</div>
 		</div>
-		<!-- <script>
-		var slide = false;
-	</script> -->
 
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<ui-view></ui-view>
+		<!-- POSTS TEMPLATE -->
+		<script type="text/ng-template" id="/posts.html">
+		<div class="page-header">
+		<h3>
+		<a ng-show="post.link" href="{{post.link}}">
+		{{post.title}}
+		</a>
+		<span ng-hide="post.link">
+		{{post.title}}
+		</span>
+		</h3>
 		</div>
-	</div>
 
-	<!-- POSTS TEMPLATE -->
-	<script type="text/ng-template" id="/posts.html">
-	<div class="page-header">
-	<h3>
-	<a ng-show="post.link" href="{{post.link}}">
-	{{post.title}}
-	</a>
-	<span ng-hide="post.link">
-	{{post.title}}
-	</span>
-	</h3>
-	</div>
+		<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+		<span class="glyphicon glyphicon-thumbs-up"
+		ng-click="incrementUpvotes(comment)"></span>
+		{{comment.upvotes}} - by {{comment.author}}
+		<span style="font-size:20px; margin-left:10px;">
+		{{comment.body}}
+		</span>
+		</div>
+		<div ng-hide="isLoggedIn()">
+		<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
+		</div>
+		<form ng-submit="addComment()" ng-show="isLoggedIn()" style="margin-top:30px;">
+		<h3>Add a new comment</h3>
 
-	<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
-	<span class="glyphicon glyphicon-thumbs-up"
-	ng-click="incrementUpvotes(comment)"></span>
-	{{comment.upvotes}} - by {{comment.author}}
-	<span style="font-size:20px; margin-left:10px;">
-	{{comment.body}}
-	</span>
-	</div>
-	<div ng-hide="isLoggedIn()">
-	<h3>You need to <a href="/#/login">Log In</a> or <a href="/#/register">Register</a> before you can comment.</h3>
-	</div>
-	<form ng-submit="addComment()" ng-show="isLoggedIn()" style="margin-top:30px;">
-	<h3>Add a new comment</h3>
+		<div class="form-group">
+		<input type="text"
+		class="form-control"
+		placeholder="Comment"
+		ng-model="body"></input>
+		</div>
+		<button type="submit" class="btn btn-primary">Post</button>
+		</form>
+		</script>
+		<!-- REGISTER TEMPLATE -->
+		<script type="text/ng-template" id="/register.html">
+		<div class="page-header">
+		<h1>Fantasy Fitness</h1>
+		</div>
 
-	<div class="form-group">
-	<input type="text"
-	class="form-control"
-	placeholder="Comment"
-	ng-model="body"></input>
-	</div>
-	<button type="submit" class="btn btn-primary">Post</button>
-	</form>
-	</script>
-	<!-- REGISTER TEMPLATE -->
-	<script type="text/ng-template" id="/register.html">
-	<div class="page-header">
-	<h1>Fantasy Fitness</h1>
-	</div>
+		<div ng-show="error" class="alert alert-danger row">
+		<span>{{ error.message }}</span>
+		<span>{{ error }}</span>
+		</div>
 
-	<div ng-show="error" class="alert alert-danger row">
-	<span>{{ error.message }}</span>
-	<span>{{ error }}</span>
-	</div>
+		<form ng-submit="register()"
+		style="margin-top:30px;">
+		<h3>Register</h3>
 
-	<form ng-submit="register()"
-	style="margin-top:30px;">
-	<h3>Register</h3>
+		<div class="form-group">
+		<input type="text"
+		class="form-control"
+		placeholder="Username"
+		ng-model="user.username"></input>
+		</div>
+		<div class="form-group">
+		<input type="password"
+		class="form-control"
+		placeholder="Password"
+		ng-model="user.password"></input>
+		</div>
+		<button type="submit" class="btn btn-primary">Register</button>
+		</form>
+		</script>
+		<!-- LOGIN TEMPLATE -->
+		<script type="text/ng-template" id="/login.html">
+		<div class="page-header">
+		<h1>Fantasy Fitness</h1>
+		</div>
 
-	<div class="form-group">
-	<input type="text"
-	class="form-control"
-	placeholder="Username"
-	ng-model="user.username"></input>
-	</div>
-	<div class="form-group">
-	<input type="password"
-	class="form-control"
-	placeholder="Password"
-	ng-model="user.password"></input>
-	</div>
-	<button type="submit" class="btn btn-primary">Register</button>
-	</form>
-	</script>
-	<!-- LOGIN TEMPLATE -->
-	<script type="text/ng-template" id="/login.html">
-	<div class="page-header">
-	<h1>Fantasy Fitness</h1>
-	</div>
+		<div ng-show="error" class="alert alert-danger row">
+		<span>{{ error.message }}</span>
+		</div>
 
-	<div ng-show="error" class="alert alert-danger row">
-	<span>{{ error.message }}</span>
-	</div>
+		<form ng-submit="logIn()"
+		style="margin-top:30px;">
+		<h3>Log In</h3>
 
-	<form ng-submit="logIn()"
-	style="margin-top:30px;">
-	<h3>Log In</h3>
-
-	<div class="form-group">
-	<input type="text"
-	class="form-control"
-	placeholder="Username"
-	ng-model="user.username"></input>
-	</div>
-	<div class="form-group">
-	<input type="password"
-	class="form-control"
-	placeholder="Password"
-	ng-model="user.password"></input>
-	</div>
-	<button type="submit" class="btn btn-primary">Log In</button>
-	</form>
-	</script>
+		<div class="form-group">
+		<input type="text"
+		class="form-control"
+		placeholder="Username"
+		ng-model="user.username"></input>
+		</div>
+		<div class="form-group">
+		<input type="password"
+		class="form-control"
+		placeholder="Password"
+		ng-model="user.password"></input>
+		</div>
+		<button type="submit" class="btn btn-primary">Log In</button>
+		</form>
+		</script>
 
 
 
 
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
-	<script src="/javascripts/ui-bootstrap-tpls.js"></script>
-	<script src="/javascripts/angularApp.js"></script>
-	<script src="/javascripts/controllers/scoreboard.js"></script>
-	<script src="/javascripts/controllers/home.js"></script>
-	<script src="/javascripts/controllers/matchup.js"></script>
-	<script src="/javascripts/controllers/fitlog.js"></script>
-	<script src="/javascripts/controllers/auth.js"></script>
-	<script src="/javascripts/controllers/navigation.js"></script>
-</body>
-</html>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+		<script src="/javascripts/ui-bootstrap-tpls.js"></script>
+		<script src="/javascripts/angularApp.js"></script>
+		<script src="/javascripts/controllers/scoreboard.js"></script>
+		<script src="/javascripts/controllers/home.js"></script>
+		<script src="/javascripts/controllers/matchup.js"></script>
+		<script src="/javascripts/controllers/fitlog.js"></script>
+		<script src="/javascripts/controllers/auth.js"></script>
+		<script src="/javascripts/controllers/navigation.js"></script>
+	</body>
+	</html>
