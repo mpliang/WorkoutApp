@@ -2,7 +2,7 @@ var app = angular.module('fantasyFitness')
     .config(['$stateProvider', function($stateProvider) {
 
     }])
-    .controller('FitlogCtrl', ['$scope', 'FitlogService', 'auth', function($scope, FitlogService, auth) {
+    .controller('FitlogCtrl', ['$scope', 'FitlogService', 'auth','$rootScope', function($scope, FitlogService, auth, $rootScope) {
         $scope.isLoggedIn = auth.isLoggedIn();
         $scope.currentUser = auth.currentUser();
         // TODO: Replace locally stored logs with db calls
@@ -55,18 +55,19 @@ var app = angular.module('fantasyFitness')
             // console.log($scope.lastEntry);
             // FitlogService.saveLog($scope.lastEntry);
         };
-
         $scope.submitLog = function() {
-            $scope.saveLog();
+          console.log("inside")
+//            $scope.saveLog();
             console.log($scope.lastEntry);
             // If $scope.fitlogs has a 'WORKING' entry, update the working entry
-            if ($scope.lastEntry && $scope.lastEntry.status == 'WORKING') {
-                var log = $scope.lastEntry;
+            if ($scope.lastEntry) {
+                var log = $scope.recordedValues;
                 //TODO: Update the working log (CURRENTLY BROKEN)
-                console.log($scope.recordedValues);
+                console.log("here", log);
+                var logID = localStorage.logID
                 // log.log = $scope.recordedValues;
                 log.totalPoints = $scope.totalPoints;
-                FitlogService.saveLog(log);
+                FitlogService.saveLog(log, logID)
             } else {
               console.log('else');
                 // Else if $scope.fitlogs has no 'WORKING' entries, create a new entry
@@ -78,7 +79,9 @@ var app = angular.module('fantasyFitness')
                     'log': $scope.recordedValues,
                     'totalPoints': $scope.totalPoints
                 };
-                FitlogService.createLog(log);
+                FitlogService.createLog(log).success(function(data){
+                  localStorage.logID = data._id;
+                })
             }
         };
         $scope.updateRow = function(pointVal, activity) {
@@ -90,17 +93,6 @@ var app = angular.module('fantasyFitness')
             $scope.saveLog();
         };
 
-        //FitlogService.getLogs().success(function(data) {
-        //    console.log(data);
-        //    $scope.fitlogs = data;
-        //}).error(function(err){console.log('error retrieving logs for user -- error: ' + err)});
-
-        //FitlogService.getLogById().success(function(data) {
-        //    console.log(data);
-        //}).error(function(err){console.log('error retrieving logs for user -- error: ' + err)});
-
-
-        // TODO: Replace hardcoded activities with a http.get from the database
         $scope.activitiesHourly = [
             {
                 "activityId": 'pphhigh',
