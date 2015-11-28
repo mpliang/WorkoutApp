@@ -6,9 +6,10 @@ var app = angular.module('fantasyFitness')
     auth.logOut;
     localStorage.clear();
     $location.path('/login')
-  } 
+  }
+  var songIndex = Math.ceil(Math.random()*6);
   var songs = ["violin.mp3", "stronger.mp3", "boom.mp3", "blank.m4a", "energy.mp3", "dynamite.m4a", "charlesqueen.m4a"]
-  var currentSong = new Audio("music/" + songs[Math.ceil(Math.random()*6)])
+  var currentSong = new Audio("music/" + songs[songIndex])
     $scope.playStatus = true;
   $scope.playPause = function() {
     if (!$scope.playStatus) currentSong.pause();
@@ -28,7 +29,7 @@ var app = angular.module('fantasyFitness')
     } else {
       songIndex -= 1;
     }
-    currentSong = new Audio("music/" + songs[songIndex] + ".mp3");
+    currentSong = new Audio("music/" + songs[songIndex]);
     currentSong.play();
     $scope.playStatus = false;
   }
@@ -40,7 +41,7 @@ var app = angular.module('fantasyFitness')
     } else {
       songIndex += 1;
     }
-    currentSong = new Audio("music/" + songs[songIndex] + ".mp3");
+    currentSong = new Audio("music/" + songs[songIndex]);
     currentSong.play();
     $scope.playStatus = false;
   }
