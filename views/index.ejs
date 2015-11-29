@@ -31,12 +31,12 @@
 
 			<!-- MUSIC PLAYER -->
 			<div class="musicBody">
-				<!-- <div class="slideTab">Music</div> -->
-				<img id="playButton" ng-if="playStatus" ng-click="playPause()" src="images/playbutton.png" alt="Play Button">
+				<div class="slideTab">Music</div>
+				<img id="playButton" ng-if="playStatus" ng-click="playPause(); playThrough()" src="images/playbutton.png" alt="Play Button">
 				<img id="playButton" ng-if="!playStatus" ng-click="playPause()" src="images/pausebutton.png" alt="Pause Button">
-				<img id="backwardButton" ng-dblclick="fastForward()" ng-click="previousSong()" src="images/backwardbutton.png" alt="Backward Button">
+				<img id="backwardButton" ng-dblclick="fastForward()" ng-click="previousSong(); playThrough()" src="images/backwardbutton.png" alt="Backward Button">
 				<img id="stopButton" ng-click="stopSong()" src="images/stopbutton.png" alt="Stop Button">
-				<img id="forwardButton" ng-dblclick="rewind()" ng-click="nextSong()" src="images/forwardbutton.png" alt="Forward Button">
+				<img id="forwardButton" ng-dblclick="rewind()" ng-click="nextSong(); playThrough()" src="images/forwardbutton.png" alt="Forward Button">
 			</div>
 			<script>
 			$('.musicBody').mouseenter(function() {
