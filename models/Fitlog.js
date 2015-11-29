@@ -5,6 +5,7 @@ var FitlogSchema = new mongoose.Schema({
     startDate: Date,
     endDate: Date,
     ownerName: String,
+    matchUp: Object,
     log: [{entryIndex: Number, entryValue: Number}],
     totalPoints: Number
 });

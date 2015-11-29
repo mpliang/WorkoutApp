@@ -150,6 +150,19 @@ app.service('FitlogService', ['$http', 'auth', function($http, auth) {
 			console.log('error!\n'+err);
 		});
 	};
+  this.matchUp = function (current, opponent){
+    var data = {
+      ownerName: current,
+      matchUp: opponent
+      }
+    console.log("mathch", data)
+ 	return $http.post('/fitlog/matchup', data).success(function(data) {
+		console.log("update", data);
+		console.log('success!!');
+	}).error(function(err) {
+		console.log('error!\n'+err);
+	});
+  }
 }]);
 
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

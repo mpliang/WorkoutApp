@@ -1,4 +1,24 @@
 <div ng-controller="MatchupCtrl">
-<script>mixpanel.track("Matchup Page Loaded")</script>
-    matchup page
+<script>mixpanel.track("Matchup Page Loaded")</script>    
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <h2>MatchUp <br> <small>{{ dateRange[0] | date: 'mediumDate' }} - {{ dateRange[1] | date: 'mediumDate' }}</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <table class="table table-responsive">
+                <thead>
+                    <th>Player</th>
+                    <th>Total Points</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>You<br/>{{matchUpName}}</td>
+                        <td>{{me.totalPoints}}</br>{{matchupScore}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

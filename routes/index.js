@@ -111,6 +111,7 @@ router.post('/:username/fitlog', function(req, res, next) {
     console.log(data);
   })
 
+
   //TODO: create a new fitlog for each week?
   var fitlog = new Fitlog(req.body);
   fitlog.save(function(err,fitlog) {
@@ -139,7 +140,26 @@ router.post('/fitlog/update', function(req, res, next){
     }
     return response;
   })
+})
   
+  router.post('/fitlog/matchup', function(req, res, next){
+  console.log("yhis", req.body.ownerName,  req.body)
+  
+  Fitlog.update({_id:req.body.ownerName._id, }, 
+         {matchUp: req.body.matchUp}, function(err, response){
+    if (err){
+      return err
+    }
+     Fitlog.update({_id: req.body.matchUp._id},
+      {matchUp: req.body.ownerName}, function(err, response){
+                    if (err){
+      return err
+    }
+    
+  })
+     return response;
+              
+  })
 //  var newData = req.body.fitlog
 //  var query = {_id: req.body.ownerName}
 //    Fitlog.findOneAndUpdate(query,
