@@ -46,17 +46,17 @@ var app = angular.module('fantasyFitness')
     currentSong.play();
     $scope.playStatus = false;
   }
-  $scope.fastForward = function() {
-    currentSong.pause();
-    currentSong.currentTime += 10;
-    currentSong.play();
-  }
-  $scope.rewind = function() {
-    currentSong.pause();
-    currentSong.currentTime -= 10;
-    currentSong.play();
-  }
-  $scope.playThrough = function() {
-    setTimeout($scope.nextSong, currentSong.duration * 1000);
-  };
+  // $scope.fastForward = function() {
+  //   currentSong.pause();
+  //   currentSong.currentTime += 10;
+  //   currentSong.play();
+  // }
+  // $scope.rewind = function() {
+  //   currentSong.pause();
+  //   currentSong.currentTime -= 10;
+  //   currentSong.play();
+  // }
+  // $scope.playThrough = function() {
+  //   setTimeout($scope.nextSong, currentSong.duration * 1000);
+  // };
 }]);

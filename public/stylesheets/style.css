@@ -196,16 +196,20 @@
   }
   .slideTab {
     color: white;
-    font-size: 30px;
-    border-top-left-radius: 10px;
+    font-size:7px;
+    border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
-    margin-left: 310px;
     position: fixed;
     z-index: -1;
     background-color: #262626;
-    width: 90px;
+    width: 20px;
     height: 50px;
-    margin-top: -40px;
+    margin-left: 395px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .slideTab>p {
+    vertical-align: 100%;
   }
   #playButton {
     width: 80px;

@@ -31,7 +31,7 @@
 
 			<!-- MUSIC PLAYER -->
 			<div class="musicBody">
-				<div class="slideTab">Music</div>
+				<div class="slideTab"><p>O<br>P<br>E<br>N</p></div>
 				<img id="playButton" ng-if="playStatus" ng-click="playPause(); playThrough()" src="images/playbutton.png" alt="Play Button">
 				<img id="playButton" ng-if="!playStatus" ng-click="playPause()" src="images/pausebutton.png" alt="Pause Button">
 				<img id="backwardButton" ng-dblclick="fastForward()" ng-click="previousSong(); playThrough()" src="images/backwardbutton.png" alt="Backward Button">
@@ -39,7 +39,7 @@
 				<img id="forwardButton" ng-dblclick="rewind()" ng-click="nextSong(); playThrough()" src="images/forwardbutton.png" alt="Forward Button">
 			</div>
 			<script>
-			$('.musicBody').mouseenter(function() {
+			$('.slideTab').click(function() {
 				$('.musicBody').addClass('musicSlide')
 			})
 			$('.musicBody').mouseleave(function() {
