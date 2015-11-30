@@ -7,7 +7,7 @@ require('./models/Comments');
 require('./models/User');
 require('./models/Fitlog');
 require('./config/passport');
-mongoose.connect('mongodb://localhost/ff_db');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/ff_db');
 
 var express = require('express');
 var path = require('path');
