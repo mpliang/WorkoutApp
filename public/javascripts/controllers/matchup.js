@@ -28,6 +28,10 @@ var app = angular.module('fantasyFitness')
         for(var i=0; i<data.length; i++){
           if(data[i].ownerName === auth.currentUser()){
             $scope.me = data[i]
+            if ($scope.me.matchUp.ownerName){
+             $scope.matchUpName = $scope.me.matchUp.ownerName
+            $scope.matchUpScore = $scope.me.matchUp.totalPoints
+            }
           }
         }})}
       pre();
